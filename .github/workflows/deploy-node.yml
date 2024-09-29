@@ -20,7 +20,7 @@ jobs:
 
     - name: Deploy to EC2
       run: |
-        ssh -i key.pem -o StrictHostKeyChecking=no ubuntu@54.152.132.123 "
+        ssh -i key.pem -o StrictHostKeyChecking=no ubuntu@23.23.52.7 "
         cd iweb-app/backend/iwebro_backend &&
         git pull origin main &&
         npm install &&

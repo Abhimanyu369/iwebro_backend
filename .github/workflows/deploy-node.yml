@@ -22,6 +22,8 @@ jobs:
       run: |
         ssh -i key.pem -o StrictHostKeyChecking=no ubuntu@23.23.52.7 "
         cd iweb-app/backend/iwebro_backend &&
+        git reset --hard HEAD &&   # Reset all tracked files to their last commit
+        git clean -fd &&           # Remove untracked files and directories
         git pull origin main &&
         npm install &&
         pm2 restart all"

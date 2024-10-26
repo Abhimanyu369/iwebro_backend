@@ -1,4 +1,4 @@
-const Requirement = require('../models/Requirement');
+const Requirement = require("../models/Requirement");
 
 // Create a new requirement
 exports.createRequirement = async (req, res) => {
@@ -21,7 +21,9 @@ exports.createRequirement = async (req, res) => {
 // Get all requirements for a client
 exports.getClientRequirements = async (req, res) => {
   try {
-    const requirements = await Requirement.find({ client: req.user.userId }).populate('selectedProfiles');
+    const requirements = await Requirement.find({
+      client: req.user.userId,
+    }).populate("selectedProfiles");
     res.json(requirements);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -31,9 +33,11 @@ exports.getClientRequirements = async (req, res) => {
 // Get a single requirement by ID
 exports.getRequirementById = async (req, res) => {
   try {
-    const requirement = await Requirement.findById(req.params.id).populate('selectedProfiles');
+    const requirement = await Requirement.findById(req.params.id).populate(
+      "selectedProfiles"
+    );
     if (!requirement) {
-      return res.status(404).json({ message: 'Requirement not found' });
+      return res.status(404).json({ message: "Requirement not found" });
     }
     res.json(requirement);
   } catch (error) {
@@ -44,18 +48,28 @@ exports.getRequirementById = async (req, res) => {
 // Update a requirement (e.g., status or selected profiles)
 exports.updateRequirement = async (req, res) => {
   try {
+    const { title, description, selectedProfiles, status } = req.body;
+
     const updatedRequirement = await Requirement.findByIdAndUpdate(
       req.params.id,
-      req.body,
-      { new: true }
-    ).populate('selectedProfiles');
+      {
+        $set: {
+          title,
+          description,
+          selectedProfiles,
+          status,
+        },
+      },
+      { new: true, runValidators: true }
+    ).populate("selectedProfiles");
 
     if (!updatedRequirement) {
-      return res.status(404).json({ message: 'Requirement not found' });
+      return res.status(404).json({ message: "Requirement not found" });
     }
 
     res.json(updatedRequirement);
   } catch (error) {
+    console.error("Error updating requirement:", error);
     res.status(500).json({ error: error.message });
   }
 };

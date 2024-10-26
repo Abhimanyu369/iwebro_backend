@@ -20,7 +20,7 @@ router.get('/', authMiddleware, getClientRequirements);
 router.get('/:id', authMiddleware, getRequirementById);
 
 // Update a requirement
-router.patch('/:id', authMiddleware, updateRequirement);
+router.post('/:id', authMiddleware, updateRequirement);
 
 // Delete a requirement
 router.delete('/:id', authMiddleware, deleteRequirement);

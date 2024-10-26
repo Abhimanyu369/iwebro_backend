@@ -74,6 +74,29 @@ exports.updateRequirement = async (req, res) => {
   }
 };
 
+// Update a requirement (e.g., status or selected profiles)
+exports.updateRequirementAssignment = async (req, res) => {
+    console.log("bbb")
+  try {
+    const { profiles } = req.body; // Expecting profiles array in request body
+
+    const updatedRequirement = await Requirement.findByIdAndUpdate(
+      req.params.id,
+      { $set: { selectedProfiles: profiles } },
+      { new: true, runValidators: true }
+    ).populate("selectedProfiles");
+
+    if (!updatedRequirement) {
+      return res.status(404).json({ message: "Requirement not found" });
+    }
+
+    res.json(updatedRequirement);
+  } catch (error) {
+    console.error("Error assigning profiles:", error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // Delete a requirement
 exports.deleteRequirement = async (req, res) => {
   try {

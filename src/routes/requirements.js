@@ -4,6 +4,7 @@ const {
   getClientRequirements, 
   getRequirementById, 
   updateRequirement, 
+  updateRequirementAssignment,
   deleteRequirement 
 } = require('../controller/requirementController');
 const authMiddleware = require('../middleware/authMiddleware'); // Assuming JWT authentication
@@ -24,5 +25,8 @@ router.post('/:id', authMiddleware, updateRequirement);
 
 // Delete a requirement
 router.delete('/:id', authMiddleware, deleteRequirement);
+
+// Assign profiles to a requirement
+router.post('/:id/assign-profiles', updateRequirementAssignment);
 
 module.exports = router;

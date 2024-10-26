@@ -22,6 +22,11 @@ const service = require('../models/service');
 const remote_hiring = require('../models/remote_hiring');
 const access_project = require('../models/access_project');
 
+const profilesRouter = require('./profiles');
+const jobsRouter = require('./jobs');
+const userRoutes = require('./userRoutes');
+const requirementsRouter = require('./requirements');
+
 
 routes.get('/fetch_data', controller.fetchData);
 routes.get('/fetch_data2', controller.fetchData2);
@@ -169,5 +174,9 @@ routes.post('/register', controller.Register);
 
 routes.route('/add_company').post(upload, controller.AddCompany);
 
+routes.use('/profiles', profilesRouter);
+routes.use('/jobs', jobsRouter);
+routes.use('/users', userRoutes);
+routes.use('/requirements', requirementsRouter);
 
 module.exports = routes;

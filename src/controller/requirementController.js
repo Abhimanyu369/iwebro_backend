@@ -1,4 +1,5 @@
 const Requirement = require("../models/Requirement");
+const ActivityLog = require("../models/ActivityLog");
 
 // Create a new requirement
 exports.createRequirement = async (req, res) => {
@@ -12,6 +13,14 @@ exports.createRequirement = async (req, res) => {
     });
 
     await newRequirement.save();
+    // Log the activity
+    await ActivityLog.create({
+      userId: req.user.userId,
+      role: 'client',
+      action: 'Created Requirement',
+      entityId: newRequirement._id,
+      entityModel: 'Requirement',
+    });
     res.status(201).json(newRequirement);
   } catch (error) {
     res.status(500).json({ error: error.message });

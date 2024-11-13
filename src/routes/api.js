@@ -26,6 +26,7 @@ const profilesRouter = require('./profiles');
 const jobsRouter = require('./jobs');
 const userRoutes = require('./userRoutes');
 const requirementsRouter = require('./requirements');
+const analyticsRouter = require('./analytics');
 
 
 routes.get('/fetch_data', controller.fetchData);
@@ -178,5 +179,6 @@ routes.use('/profiles', profilesRouter);
 routes.use('/jobs', jobsRouter);
 routes.use('/users', userRoutes);
 routes.use('/requirements', requirementsRouter);
+routes.use('/analytics', analyticsRouter);
 
 module.exports = routes;

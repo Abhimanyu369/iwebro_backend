@@ -28,6 +28,7 @@ const userRoutes = require('./userRoutes');
 const requirementsRouter = require('./requirements');
 const analyticsRouter = require('./analytics');
 const queryRouter = require('./query');
+const hiringRouter = require('./hiring');
 
 
 routes.get('/fetch_data', controller.fetchData);
@@ -182,5 +183,6 @@ routes.use('/users', userRoutes);
 routes.use('/requirements', requirementsRouter);
 routes.use('/analytics', analyticsRouter);
 routes.use('/queries', queryRouter);
+routes.use('/hiring', hiringRouter);
 
 module.exports = routes;
